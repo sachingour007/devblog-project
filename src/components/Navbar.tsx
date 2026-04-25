@@ -5,6 +5,20 @@ const Navbar = () => {
 		<header className="fixed top-0 left-0 w-full bg-white">
 			<div className="py-5 px-8 flex items-center justify-between">
 				<div className="flex items-center gap-5">
+					<div className="cursor-pointer">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							fill="none"
+							viewBox="0 0 24 24"
+						>
+							<path
+								fill="currentColor"
+								d="M20.6 17.51a.5.5 0 0 1 0 .98l-.1.01h-17a.5.5 0 0 1 0-1h17zm0-6a.5.5 0 0 1 0 .98l-.1.01h-17a.5.5 0 0 1 0-1h17zm0-6a.5.5 0 0 1 0 .98l-.1.01h-17a.5.5 0 0 1 0-1h17z"
+							></path>
+						</svg>
+					</div>
 					<div className="w-48">
 						<Image
 							src="/logo.svg"
@@ -36,6 +50,7 @@ const Navbar = () => {
 							className="bg-gray-100 px-4 py-2 rounded-full outline-none"
 						/>
 					</div>
+					<p className="font-raleway">hello world</p>
 				</div>
 				<div className="flex items-center gap-5">
 					<div className="flex gap-1 cursor-pointer">
@@ -57,7 +72,7 @@ const Navbar = () => {
 						<p className="font18 font-inter ">Write</p>
 					</div>
 					<div>
-						<button className="greenBtn cursor-pointer">Singup</button>
+						<button className="purpuleBtn cursor-pointer">Singup</button>
 						<div className="hidden">
 							<div className="w-12 h-12 border border-y-gray-50 rounded-full overflow-hidden">
 								<Image

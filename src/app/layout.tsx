@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Newsreader, Inter } from "next/font/google";
-import "./globals.css";
+import { Raleway, Roboto } from "next/font/google";
+import "@/styles/global.css";
 import Navbar from "@/components/Navbar";
 
-const newsReader = Newsreader({
-	variable: "--font-newsreader",
+const ralewayFont = Raleway({
+	variable: "--font-raleway",
 	subsets: ["latin"],
 });
 
-const inter = Inter({
-	variable: "--font-inter",
+const robotoFont = Roboto({
+	variable: "--font-roboto",
 	subsets: ["latin"],
 });
 
@@ -26,7 +26,7 @@ export default function RootLayout({
 	return (
 		<html
 			lang="en"
-			className={`${newsReader.variable} ${inter.variable} h-full antialiased`}
+			className={`${ralewayFont.variable} ${robotoFont.variable} h-full antialiased`}
 		>
 			<body className="min-h-full flex flex-col">
 				<Navbar />

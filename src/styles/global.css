@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+:root {
+	--bgWhite: #ffffff;
+	--bgPurpul: #7c4ee4;
+	--darkBlack: #333333;
+	--darkGray: #666666;
+	--lightGray: #999999;
+}
+
+body {
+	background: var(--bgWhite);
+	color: var(--darkBlack);
+	overflow-x: hidden !important;
+	font-family: var(--font-roboto);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+	--color-bgWhite: #ffffff;
+	--color-bgBlack: #333333;
+	--color-bgPurpul: #7c4ee4;
+	--color-darkGray: #666666;
+	--color-lightGray: #999999;
+
+	--font-raleway: var(--font-raleway);
+
+	/* Media Query */
+	--breakpoint-3xl: 1800px;
+}
+
+@utility font64 {
+	@apply text-[36px] lg:text-[34px] xl:text-[42px] 2xl:text-[52px] [@media(min-width:1800px)]:text-[64px];
+}
+
+@utility font52 {
+	@apply text-[24px] lg:text-[34px] 2xl:text-[42px] [@media(min-width:1800px)]:text-[52px];
+}
+
+@utility font48 {
+	@apply xl:text-[20px] lg:text-[34px] xl:text-[38px] 2xl:text-[48px];
+}
+
+@utility font32 {
+	@apply lg:text-[20px] 2xl:text-[32px];
+}
+@utility font24 {
+	@apply xl:text-[18px] 2xl:text-[24px];
+}
+@utility font18 {
+	@apply text-[14px] lg:text-[16px] xl:text-[18px];
+}
+
+@utility font16 {
+	@apply text-[14px] xl:text-[16px];
+}
+
+@utility font14 {
+	@apply text-[14px];
+}
+
+@layer components {
+	.whiteBtn {
+		@apply font-raleway font18 font-bold text-bgBlack flex items-center justify-center rounded-lg border border-[#04091E] bg-white px-8 py-4 leading-[100%] capitalize;
+	}
+	.whiteBtnWithoutBorder {
+		@apply font-raleway font14 font-bold text-bgBlack flex items-center justify-center bg-bgWhite px-8 py-4 leading-[100%] capitalize;
+	}
+	.purpuleBtn {
+		@apply font-raleway font16 font-semibold text-bgWhite flex items-center justify-center rounded-lg bg-bgPurpul px-8 py-4 leading-[100%] capitalize;
+	}
+	.grayBtn {
+		@apply font-raleway font16 font-semibold text-bgBlack flex items-center justify-center rounded-lg bg-[#FAFAFA] px-8 py-4 leading-[100%] capitalize;
+	}
+
+	/* .scrollStop {
+    @apply h-screen touch-none overflow-x-hidden overflow-y-hidden;
+  } */
+}
