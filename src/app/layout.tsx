@@ -28,7 +28,7 @@ export default function RootLayout({
 			lang="en"
 			className={`${ralewayFont.variable} ${robotoFont.variable} h-full antialiased`}
 		>
-			<body className="min-h-full flex flex-col">
+			<body className="min-h-full flex flex-col" cz-shortcut-listen="true">
 				<Navbar />
 				{children}
 			</body>

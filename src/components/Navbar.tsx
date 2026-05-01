@@ -1,60 +1,79 @@
+"use client";
+
 import Image from "next/image";
-import SearchExpandIcon from "./SearchExpandIcon";
 import Link from "next/link";
+import { useState } from "react";
+import SearchExpandIcon from "./SearchExpandIcon";
 
 const Navbar = () => {
-	return (
-		<header className="fixed top-0 left-0 w-full bg-white">
-			<div className="wrapper py-5 flexProperty justify-between">
-				<div className="flex items-center gap-5">
-					<div className="w-48 cursor-pointer">
-						<Link href={"/"}>
-							<Image
-								src="/logo.png"
-								alt="logo"
-								width={250}
-								height={70}
-								loading="eager"
-								style={{ width: "auto", height: "auto" }}
-							/>
-						</Link>
-					</div>
-				</div>
+	const [isOpen, setIsOpen] = useState(false);
 
-				<div className="flex items-center ">
-					<ul className="flexProperty gap-14">
-						<li className="font16 leading-[150%] font-medium text-bgBlack ">
-							<Link href={"/blog"}>Blog</Link>
+	return (
+		<header className="fixed top-0 left-0 w-full bg-white shadow-sm z-999">
+			<div className="wrapper py-5 flex justify-between items-center">
+				{/* Logo */}
+				<Link href="/" className="w-28 md:w-32 xl:w-48">
+					<Image src="/logo.png" alt="logo" width={250} height={70} />
+				</Link>
+
+				{/* Desktop Menu */}
+				<ul className="hidden md:flex items-center gap-10">
+					<li>
+						<Link href="/blog">Blog</Link>
+					</li>
+					<li>
+						<Link href="/about">About</Link>
+					</li>
+					<SearchExpandIcon />
+					<button className="purpuleBtn">Signup</button>
+				</ul>
+
+				{/* Hamburger Button */}
+				<button
+					className="md:hidden flex flex-col justify-center items-center w-8 h-8 relative"
+					onClick={() => setIsOpen(!isOpen)}
+				>
+					<span
+						className={`absolute w-6 h-0.5 bg-black transition-all duration-300 ${
+							isOpen ? "rotate-45" : "-translate-y-2"
+						}`}
+					></span>
+
+					<span
+						className={`absolute w-6 h-0.5 bg-black transition-all duration-300 ${
+							isOpen ? "opacity-0" : ""
+						}`}
+					></span>
+
+					<span
+						className={`absolute w-6 h-0.5 bg-black transition-all duration-300 ${
+							isOpen ? "-rotate-45" : "translate-y-2"
+						}`}
+					></span>
+				</button>
+			</div>
+
+			{/* Mobile Menu */}
+			{isOpen && (
+				<div className="md:hidden bg-white border-t ">
+					<ul className="flex flex-col items-center gap-6 py-6">
+						<li>
+							<Link href="/blog" onClick={() => setIsOpen(false)}>
+								Blog
+							</Link>
 						</li>
-						<li className="font16 leading-[150%] font-medium text-bgBlack ">
-							<Link href={"/about"}>About</Link>
+						<li>
+							<Link href="/about" onClick={() => setIsOpen(false)}>
+								About
+							</Link>
 						</li>
-						<SearchExpandIcon />
-						<div>
-							<button className="purpuleBtn cursor-pointer">
-								Singup
-							</button>
-							<div className="hidden">
-								<div className="w-12 h-12 border border-y-gray-50 rounded-full overflow-hidden">
-									<Image
-										src="/dummy-user.png"
-										alt="user"
-										width={50}
-										height={50}
-										style={{ width: "auto", height: "auto" }}
-									/>
-								</div>
-								<div>
-									<ul>
-										<li>Profile</li>
-										<li>logout</li>
-									</ul>
-								</div>
-							</div>
-						</div>
+						<li>
+							<SearchExpandIcon />
+						</li>
+						<button className="purpuleBtn">Signup</button>
 					</ul>
 				</div>
-			</div>
+			)}
 		</header>
 	);
 };
