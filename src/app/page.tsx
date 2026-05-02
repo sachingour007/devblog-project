@@ -31,6 +31,7 @@ export default function Home() {
 							width={912}
 							height={864}
 							style={{ width: "100%", height: "auto" }}
+							loading="eager"
 							className="max-md:hidden"
 						/>
 						<Image
@@ -39,6 +40,7 @@ export default function Home() {
 							width={491}
 							height={495}
 							style={{ width: "100%", height: "auto" }}
+							loading="eager"
 							className="md:hidden"
 						/>
 					</div>

@@ -40,21 +40,21 @@ body {
 }
 
 @utility font48 {
-	@apply xl:text-[20px] lg:text-[34px] xl:text-[38px] 2xl:text-[48px];
+	@apply text-[20px] lg:text-[34px] xl:text-[38px] 2xl:text-[48px];
 }
 
 @utility font32 {
-	@apply lg:text-[20px] 2xl:text-[32px];
+	@apply text-[20px] 2xl:text-[32px];
 }
 @utility font24 {
-	@apply xl:text-[18px] 2xl:text-[24px];
+	@apply text-[18px] 2xl:text-[24px];
 }
 @utility font18 {
 	@apply text-[14px] lg:text-[16px] xl:text-[18px];
 }
 
 @utility font16 {
-	@apply text-[14px] xl:text-[16px];
+	@apply text-[12px] md:text-[14px] xl:text-[16px];
 }
 
 @utility font14 {
