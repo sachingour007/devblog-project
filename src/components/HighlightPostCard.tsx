@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const HighlightPostCard = () => {
 	return (
-		<section className="relative xl:pb-32 mb-32">
+		<section className="relative xl:pb-32 bottomMargin">
 			<div className="wrapper">
 				<div className="relative p-5 md:p-6 xl:p-0 flexProperty flex-col gap-6 border border-[#DBDBDB] xl:border-none rounded-xl">
 					<Image

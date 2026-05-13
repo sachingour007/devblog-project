@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Raleway, Roboto } from "next/font/google";
 import "@/styles/global.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const ralewayFont = Raleway({
 	variable: "--font-raleway",
@@ -31,6 +32,7 @@ export default function RootLayout({
 			<body className="min-h-full flex flex-col" cz-shortcut-listen="true">
 				<Navbar />
 				{children}
+				<Footer />
 			</body>
 		</html>
 	);
