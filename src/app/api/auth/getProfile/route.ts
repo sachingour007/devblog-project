@@ -1,5 +1,5 @@
 import { connectDB } from "@/lib/db";
-import User from "@/models/user";
+import User from "@/models/user.model";
 import jwt from "jsonwebtoken";
 
 type JwtPayloadType = {

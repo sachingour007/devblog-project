@@ -19,7 +19,7 @@ const Navbar = () => {
 				{/* Desktop Menu */}
 				<ul className="hidden md:flex items-center gap-10">
 					<li>
-						<Link href="/blog">Blog</Link>
+						<Link href="/blogs">Blog</Link>
 					</li>
 					<li>
 						<Link href="/about">About</Link>

@@ -20,7 +20,6 @@ const Footer = () => {
 							width={150}
 							height={43}
 							style={{ width: "100%", height: "auto" }}
-							className="w-10 h-10 object-contain"
 						/>
 					</div>
 				</div>
