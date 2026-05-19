@@ -22,7 +22,7 @@ const Navbar = () => {
 						<Link href="/blogs">Blog</Link>
 					</li>
 					<li>
-						<Link href="/about">About</Link>
+						<Link href="/new-story">New Story</Link>
 					</li>
 					<SearchExpandIcon />
 					<button className="purpuleBtn">Signup</button>
@@ -64,7 +64,7 @@ const Navbar = () => {
 						</li>
 						<li>
 							<Link href="/about" onClick={() => setIsOpen(false)}>
-								About
+								new-story
 							</Link>
 						</li>
 						<li>
