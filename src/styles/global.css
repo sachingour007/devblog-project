@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 :root {
 	--bgWhite: #fafafa;
@@ -91,4 +93,19 @@ body {
 	/* .scrollStop {
     @apply h-screen touch-none overflow-x-hidden overflow-y-hidden;
   } */
+}
+.tiptap ul {
+	list-style-type: disc;
+	padding-left: 1.5rem;
+}
+
+.tiptap ol {
+	list-style-type: decimal;
+	padding-left: 1.5rem;
+}
+
+.tiptap blockquote {
+	border-left: 3px solid #888;
+	padding-left: 1rem;
+	font-style: italic;
 }
