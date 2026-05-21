@@ -1,5 +1,4 @@
 "use client";
-
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
@@ -13,7 +12,7 @@ export default function TiptapEditor() {
 			Image,
 			Highlight.configure({ multicolor: true }),
 		],
-		content: `<h2>Tell your story...</h2>`,
+		content: `<p>Tell your story...</p>`,
 		editorProps: {
 			attributes: {
 				class: "prose dark:prose-invert prose-sm sm:prose-base focus:outline-none max-w-none",
@@ -23,9 +22,9 @@ export default function TiptapEditor() {
 	});
 
 	return (
-		<div className="border rounded-lg p-4 min-h-75">
+		<div className="wrapper ">
 			{editor && <MenuBar editor={editor} />}
-			<EditorContent editor={editor}  className="tiptap"/>
+			<EditorContent editor={editor} className="tiptapBox" />
 		</div>
 	);
 }

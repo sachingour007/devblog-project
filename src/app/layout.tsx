@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Raleway, Roboto } from "next/font/google";
-import "@/styles/global.css";
+import "./global.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 

@@ -32,7 +32,7 @@ const LinkComponent = ({
 
 	return (
 		<Popover open={isLinkPopoverOpen} onOpenChange={setIsLinkPopoverOpen}>
-			<PopoverTrigger>{children}</PopoverTrigger>
+			<PopoverTrigger asChild>{children}</PopoverTrigger>
 			{/* // this is the main */}
 			{/* trigger point */}
 			<PopoverContent className="w-80 p-4">
@@ -56,7 +56,13 @@ const LinkComponent = ({
 						>
 							Cancel
 						</Button>
-						<Button onClick={handleSetLink}>Save</Button>
+						<Button
+							variant={"destructive"}
+							onClick={handleSetLink}
+							className="bg-bgBlack text-bgWhite font-light "
+						>
+							Save
+						</Button>
 					</div>
 				</div>
 			</PopoverContent>

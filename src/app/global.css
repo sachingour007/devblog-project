@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
@@ -90,10 +91,16 @@ body {
 		@apply font-raleway font16 font-semibold text-bgBlack inline-flex items-center justify-center rounded-lg bg-[#FAFAFA] px-6 lg:px-8 py-3 lg:py-4 leading-[100%] capitalize;
 	}
 
+	.tiptap{
+		@apply border rounded-md mt-2 h-80 overflow-y-auto p-4 bg-[#F0F0F0];
+	}
+
 	/* .scrollStop {
     @apply h-screen touch-none overflow-x-hidden overflow-y-hidden;
   } */
 }
+
+
 .tiptap ul {
 	list-style-type: disc;
 	padding-left: 1.5rem;
