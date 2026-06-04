@@ -18,6 +18,7 @@ import {
 	UnderlineIcon,
 	UndoIcon,
 	UnlinkIcon,
+	ImageIcon,
 } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import LinkComponent from "./LinkComponent";
@@ -54,6 +55,36 @@ const ToolbarToggle = ({
 );
 
 const MenuBar = ({ editor }: { editor: Editor }) => {
+	//Image upload Function
+	const addImage = async () => {
+		const input = document.createElement("input");
+
+		input.type = "file";
+		input.accept = "image/*";
+
+		input.click();
+
+		input.onchange = async () => {
+			const file = input.files?.[0];
+
+			if (!file) return;
+
+			const localUrl = URL.createObjectURL(file);
+
+			// insert image preview into editor
+			editor
+				.chain()
+				.focus()
+				.setImage({
+					src: localUrl,
+				})
+				.run();
+
+			// store file somewhere
+			console.log(file);
+		};
+	};
+
 	const editorState = useEditorState({
 		editor,
 		selector: (ctx) => ({
@@ -220,33 +251,31 @@ const MenuBar = ({ editor }: { editor: Editor }) => {
 				<Separator />
 
 				{/* Link */}
-				{editorState.isLink ? (
-					<ToolbarToggle
-						pressed
-						onPressedChange={() =>
-							editor
-								.chain()
-								.focus()
-								.extendMarkRange("link")
-								.unsetLink()
-								.run()
-						}
-						label="Remove link"
+				<LinkComponent editor={editor}>
+					<Toggle
+						size="lg"
+						aria-label="Insert link"
+						variant="outline"
+						className="h-8 w-8 p-0 border rounded-md text-muted-foreground hover:text-foreground hover:bg-accent"
 					>
-						<UnlinkIcon className="h-4 w-4" />
-					</ToolbarToggle>
-				) : (
-					<LinkComponent editor={editor}>
-						<Toggle
-							size="lg"
-							aria-label="Insert link"
-							variant="outline"
-							className="h-8 w-8 p-0 border rounded-md text-muted-foreground hover:text-foreground hover:bg-accent"
-						>
-							<LinkIcon className="h-4 w-4" />
-						</Toggle>
-					</LinkComponent>
-				)}
+						<LinkIcon className="h-4 w-4" />
+					</Toggle>
+				</LinkComponent>
+
+				<ToolbarToggle
+					pressed={editorState.isLink}
+					onPressedChange={() =>
+						editor
+							.chain()
+							.focus()
+							.extendMarkRange("link")
+							.unsetLink()
+							.run()
+					}
+					label="Remove link"
+				>
+					<UnlinkIcon className="h-4 w-4" />
+				</ToolbarToggle>
 
 				<Separator />
 
@@ -271,6 +300,18 @@ const MenuBar = ({ editor }: { editor: Editor }) => {
 					className="h-8 w-8 p-0 border rounded-md text-muted-foreground hover:text-foreground hover:bg-accent disabled:opacity-30"
 				>
 					<RedoIcon className="h-4 w-4" />
+				</Toggle>
+
+				<Separator />
+
+				<Toggle
+					size="lg"
+					aria-label="Add image"
+					variant="outline"
+					onPressedChange={addImage}
+					className="h-8 w-8 p-0 border rounded-md text-muted-foreground hover:text-foreground hover:bg-accent"
+				>
+					<ImageIcon className="h-4 w-4" />
 				</Toggle>
 			</div>
 		</div>

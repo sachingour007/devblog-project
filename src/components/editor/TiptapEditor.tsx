@@ -3,26 +3,38 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Highlight from "@tiptap/extension-highlight";
+
 import MenuBar from "./MenuBar";
 
-export default function TiptapEditor() {
+interface Props {
+	value: any;
+	onChange: (content: any) => void;
+}
+
+export default function TiptapEditor({ value, onChange }: Props) {
 	const editor = useEditor({
 		extensions: [
 			StarterKit,
-			Image,
+			Image.configure({
+				inline: false,
+				allowBase64: false,
+			}),
 			Highlight.configure({ multicolor: true }),
 		],
-		content: `<p>Tell your story...</p>`,
+		content: value,
 		editorProps: {
 			attributes: {
 				class: "prose dark:prose-invert prose-sm sm:prose-base focus:outline-none max-w-none",
 			},
 		},
+		onUpdate: ({ editor }) => {
+			onChange(editor.getJSON());
+		},
 		immediatelyRender: false,
 	});
 
 	return (
-		<div className="wrapper ">
+		<div className="">
 			{editor && <MenuBar editor={editor} />}
 			<EditorContent editor={editor} className="tiptapBox" />
 		</div>

@@ -23,8 +23,6 @@ const LinkComponent = ({
 				.extendMarkRange("link")
 				.setLink({ href: linkUrl })
 				.run();
-		} else {
-			editor.chain().focus().extendMarkRange("link").unsetLink().run();
 		}
 		setIsLinkPopoverOpen(false);
 		setLinkUrl("");
@@ -33,8 +31,6 @@ const LinkComponent = ({
 	return (
 		<Popover open={isLinkPopoverOpen} onOpenChange={setIsLinkPopoverOpen}>
 			<PopoverTrigger asChild>{children}</PopoverTrigger>
-			{/* // this is the main */}
-			{/* trigger point */}
 			<PopoverContent className="w-80 p-4">
 				<div className="flex flex-col gap-4">
 					<h3 className="font-medium">Insert Link</h3>
