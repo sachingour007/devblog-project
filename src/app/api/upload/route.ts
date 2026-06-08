@@ -1,4 +1,5 @@
 import cloudinary from "@/lib/cloudinary";
+import path from "path";
 
 export async function POST(req: Request) {
 	try {
@@ -10,18 +11,24 @@ export async function POST(req: Request) {
 		}
 
 		//2. file ko buffer me conver
-
 		const arrayBuffer = await file.arrayBuffer();
 		const buffer = Buffer.from(arrayBuffer);
 
+		const ext = path.extname(file.name);
+		const uniqueName = `devblog-${Date.now()}-$${Math.random().toString(36).slice(2, 7)}${ext}`;
+
 		const result = await new Promise((resolve, reject) => {
 			cloudinary.uploader
-				.upload_stream({ floder: "dev_blog" }, (error, result) => {
-					if (error) reject(error);
-					else resolve(result);
-				})
+				.upload_stream(
+					{ folder: "dev_blog", public_id: uniqueName },
+					(error, result) => {
+						if (error) reject(error);
+						else resolve(result);
+					},
+				)
 				.end(buffer);
 		});
+		console.log(result, "backend 32");
 		return Response.json({
 			url: (result as any).secure_url,
 		});

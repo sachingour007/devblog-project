@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 import ImageUpload from "@/components/ImageUpload";
+import { uploadToCloudinary } from "@/util/fileUploadFn";
 
 type ImageState = {
 	featured: File | null;
@@ -19,8 +20,38 @@ const page = () => {
 		banner: null,
 		mblBanner: null,
 	});
+	const [uploading, setUploading] = useState<boolean | null>(false);
 	const [content, setContent] = useState(null);
-	console.log(images)
+
+	const handlePublish = async () => {
+		if (!images.featured) {
+			alert("Feature Image Required!");
+			return;
+		}
+
+		setUploading(true);
+		try {
+			const featuredUrl = await uploadToCloudinary(
+				images.featured,
+				"featured",
+			);
+			const bannerUrl = images.banner
+				? await uploadToCloudinary(images.banner, "banner")
+				: featuredUrl;
+			const mblBannerUrl = images.mblBanner
+				? await uploadToCloudinary(images.mblBanner, "mblBanner")
+				: bannerUrl;
+
+			console.log({ featuredUrl, bannerUrl, mblBannerUrl });
+		} catch (error) {
+			console.error("Upload failed:", error);
+		} finally {
+			setUploading(false);
+		}
+	};
+
+	console.log(images);
+
 	return (
 		<div className=" bg-zinc-100 pt-28 md:pt-32 xl:pt-44 pb-11 md:pb-20 xl:pb-25">
 			<div className="mx-auto max-w-7xl rounded-xl bg-white p-6 shadow">
@@ -88,70 +119,27 @@ const page = () => {
 					</h2>
 
 					<div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-						{/* Featured Image */}
 						<ImageUpload
 							lable="Featured Image"
-							size="1200 × 630"
+							size="1200 x 630"
 							onFileSelect={(file) =>
 								setImages((prev) => ({ ...prev, featured: file }))
 							}
 						/>
 						<ImageUpload
 							lable="Banner Image"
-							size="1920 × 600"
+							size="1920 x 600"
 							onFileSelect={(file) =>
 								setImages((prev) => ({ ...prev, banner: file }))
 							}
 						/>
 						<ImageUpload
 							lable="Mobile Banner"
-							size="600 × 800"
+							size="600 x 800"
 							onFileSelect={(file) =>
 								setImages((prev) => ({ ...prev, mblBanner: file }))
 							}
 						/>
-
-						{/* Banner Image */}
-						{/* <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4">
-							<label className="mb-3 block text-sm font-semibold text-zinc-700">
-								Banner Image
-							</label>
-
-							<div className="flex h-56 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-zinc-300 bg-white transition hover:border-violet-500">
-								<div className="text-4xl">🌄</div>
-
-								<p className="mt-3 text-sm font-medium text-zinc-700">
-									Upload Banner Image
-								</p>
-
-								<p className="mt-1 text-xs text-zinc-400">
-									1920 × 600 recommended
-								</p>
-
-								<input type="file" className="hidden" />
-							</div>
-						</div> */}
-
-						{/* Mobile Image */}
-						{/* <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4">
-							<label className="mb-3 block text-sm font-semibold text-zinc-700">
-								Mobile Banner
-							</label>
-
-							<div className="flex h-56 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-zinc-300 bg-white transition hover:border-violet-500">
-								<div className="text-4xl">📱</div>
-
-								<p className="mt-3 text-sm font-medium text-zinc-700">
-									Upload Mobile Image
-								</p>
-
-								<p className="mt-1 text-xs text-zinc-400">
-									600 × 800 recommended
-								</p>
-
-								<input type="file" className="hidden" />
-							</div>
-						</div> */}
 					</div>
 				</div>
 
@@ -166,29 +154,15 @@ const page = () => {
 						Save Draft
 					</button>
 
-					<button className="rounded-lg bg-violet-600 px-5 py-2 text-sm font-medium text-white hover:bg-violet-700">
-						Publish Blog
+					<button
+						className="rounded-lg bg-violet-600 px-5 py-2 text-sm font-medium text-white hover:bg-violet-700"
+						onClick={handlePublish}
+					>
+						{uploading ? "uploading..." : "Publish Blog"}
 					</button>
 				</div>
 			</div>
 		</div>
-
-		// <div className="pt-28 md:pt-32 xl:pt-44">
-		// 	<div className="wrapper">
-		// 		<div>
-		// 			<Field>
-		// 				<FieldLabel htmlFor="input-field-username">Title</FieldLabel>
-		// 				<Input
-		// 					id="input-field-username"
-		// 					type="text"
-		// 					placeholder="Enter your Title"
-		// 				/>
-		// 			</Field>
-		// 		</div>
-		// 		<TiptapEditor value={content} onChange={setContent} />
-		// 		<Button variant="outline" className="purpuleBtn">Save</Button>
-		// 	</div>
-		// </div>
 	);
 };
 

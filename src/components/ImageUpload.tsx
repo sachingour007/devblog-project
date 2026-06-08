@@ -10,20 +10,27 @@ interface Props {
 const ImageUpload = ({ lable, size, onFileSelect }: Props) => {
 	const [file, setFile] = useState<File | null>(null);
 	const [preview, setPreview] = useState<string | null>(null);
-	const [upload, setUpload] = useState<boolean | null>(false);
+	
+	const [error, setError] = useState<string | null>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (!file) return;
 
+		if (file.size / 1024 > 1024) {
+			setError("Required in 1MB");
+			return;
+		}
+
 		if (preview) URL.revokeObjectURL(preview);
 
 		setFile(file);
+		setError("");
 		setPreview(URL.createObjectURL(file));
 		onFileSelect(file);
 
-		setUpload(true);
+		
 		// try {
 		// 	const formData = new FormData();
 		// 	formData.append("file", selected);
@@ -45,9 +52,10 @@ const ImageUpload = ({ lable, size, onFileSelect }: Props) => {
 	const handleRemove = () => {
 		if (preview) URL.revokeObjectURL(preview);
 		setFile(null);
+		setError("");
 		setPreview(null);
 		if (inputRef.current) inputRef.current.value = "";
-		onFileSelect(null)
+		onFileSelect(null);
 	};
 
 	useEffect(() => {
@@ -65,7 +73,7 @@ const ImageUpload = ({ lable, size, onFileSelect }: Props) => {
 			<input
 				type="file"
 				className="hidden"
-				accept="image/*"
+				accept="image/jpeg,PNG,webp"
 				ref={inputRef}
 				onChange={handleChange}
 			/>
@@ -75,7 +83,7 @@ const ImageUpload = ({ lable, size, onFileSelect }: Props) => {
 					<img
 						src={preview}
 						alt="Preview"
-						className="h-56 w-full rounded-xl object-cover"
+						className="h-56 w-full rounded-xl object-contain"
 					/>
 					<button
 						onClick={handleRemove}
@@ -98,6 +106,8 @@ const ImageUpload = ({ lable, size, onFileSelect }: Props) => {
 					<p className="mt-1 text-xs text-zinc-400">{size} recommended</p>
 				</div>
 			)}
+
+			{error && <p className="mt-2 text-xs text-red-500">{error}</p>}
 
 			{file && (
 				<p className="mt-2 text-xs text-zinc-400">
