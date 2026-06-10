@@ -73,7 +73,7 @@ const ImageUpload = ({ lable, size, onFileSelect }: Props) => {
 			<input
 				type="file"
 				className="hidden"
-				accept="image/jpeg,PNG,webp"
+				accept="image/jpeg,image/png,image/webp"
 				ref={inputRef}
 				onChange={handleChange}
 			/>

@@ -2,15 +2,16 @@ import { connectDB } from "@/lib/db";
 import User from "@/models/user.model";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
 	try {
 		await connectDB();
 
 		const { username, email, password } = await req.json();
 
 		if (!username || !email || !password) {
-			return Response.json(
+			return NextResponse.json(
 				{ error: "All fields are required" },
 				{ status: 400 },
 			);
@@ -30,14 +31,20 @@ export async function POST(req: Request) {
 
 		const { password: string, ...safeUser } = user._doc;
 
-		return Response.json(
+		const response = NextResponse.json(
 			{
 				message: "user Register Successfully",
-				token,
 				user: safeUser,
 			},
 			{ status: 200 },
 		);
+
+		response.cookies.set("token", token, {
+			httpOnly: true,
+			maxAge: 7 * 24 * 60 * 60,
+		});
+
+		return response;
 	} catch (error) {
 		console.log(error);
 		return Response.json(

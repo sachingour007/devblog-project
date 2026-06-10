@@ -20,8 +20,6 @@ const blogSchema = new Schema(
 			type: String,
 			enum: ["featured", "highlight", "normal"],
 			default: "normal",
-			trim: true,
-			required: true,
 		},
 		featuredImage: {
 			type: String,
@@ -59,11 +57,16 @@ const blogSchema = new Schema(
 			type: String,
 			trim: true,
 			required: [true, "Description is required"],
-			maxlength: [3000, "content cannot exceed 3000 characters"],
 		},
 		author: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User",
+			required: true,
+		},
+		status: {
+			type: String,
+			enum: ["draft", "published", "pending", "rejected"],
+			default: "draft",
 			required: true,
 		},
 	},

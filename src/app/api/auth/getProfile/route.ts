@@ -1,21 +1,20 @@
 import { connectDB } from "@/lib/db";
 import User from "@/models/user.model";
 import jwt from "jsonwebtoken";
+import { NextRequest, NextResponse } from "next/server";
 
 type JwtPayloadType = {
 	userId: string;
 };
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
 	await connectDB();
 	try {
-		const authHeader = req.headers.get("authorization");
+		const token = req.cookies.get("token")?.value;
 
-		if (!authHeader || !authHeader.startsWith("Bearer ")) {
-			return Response.json({ message: "Unauthorized" }, { status: 401 });
+		if (!token) {
+			return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 		}
-
-		const token = authHeader.split(" ")[1];
 
 		const decodeToken = jwt.verify(
 			token,
@@ -27,15 +26,18 @@ export async function GET(req: Request) {
 		const user = await User.findById(userId).select("-password");
 
 		if (!user) {
-			return Response.json({ message: "User not found" }, { status: 404 });
+			return NextResponse.json(
+				{ message: "User not found" },
+				{ status: 404 },
+			);
 		}
 
-		return Response.json(
+		return NextResponse.json(
 			{ message: "User get Successfully", user },
 			{ status: 200 },
 		);
 	} catch (error) {
-		return Response.json(
+		return NextResponse.json(
 			{ message: "Internal Server Error" },
 			{ status: 500 },
 		);

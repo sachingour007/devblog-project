@@ -60,7 +60,7 @@ const MenuBar = ({ editor }: { editor: Editor }) => {
 		const input = document.createElement("input");
 
 		input.type = "file";
-		input.accept = "image/*";
+		input.accept = "image/jpeg,image/png,image/webp";
 
 		input.click();
 
@@ -81,7 +81,27 @@ const MenuBar = ({ editor }: { editor: Editor }) => {
 				.run();
 
 			// store file somewhere
-			console.log(file);
+			try {
+				const formData = new FormData();
+				formData.append("file", file);
+				formData.append("type", "content");
+
+				const res = await fetch("/api/upload", {
+					method: "POST",
+					body: formData,
+				});
+				const data = await res.json();
+				editor
+					.chain()
+					.focus()
+					.setImage({
+						src: data.url,
+					})
+					.run();
+			} catch (error) {
+				console.error("Image upload failed:", error);
+				editor.commands.undo();
+			}
 		};
 	};
 

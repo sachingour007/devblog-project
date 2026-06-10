@@ -28,7 +28,8 @@ export default function TiptapEditor({ value, onChange }: Props) {
 			},
 		},
 		onUpdate: ({ editor }) => {
-			onChange(editor.getJSON());
+			const json = JSON.stringify(editor.getJSON()); //JSON Formate
+			onChange(json);
 		},
 		immediatelyRender: false,
 	});

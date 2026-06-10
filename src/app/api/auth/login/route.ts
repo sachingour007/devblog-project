@@ -1,17 +1,17 @@
 import { connectDB } from "@/lib/db";
 import User from "@/models/user.model";
 import bcrypt from "bcryptjs";
-import { request } from "https";
 import jwt from "jsonwebtoken";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
 	try {
 		await connectDB();
 
 		const { email, password } = await req.json();
 
 		if (!email || !password) {
-			return Response.json(
+			return NextResponse.json(
 				{ message: "All Fields Required." },
 				{ status: 400 },
 			);
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
 		const existUser = await User.findOne({ email });
 
 		if (!existUser) {
-			return Response.json(
+			return NextResponse.json(
 				{ message: "Email not find, Please singup" },
 				{ status: 404 },
 			);
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
 		const comparPass = await bcrypt.compare(password, existUser.password);
 
 		if (!comparPass) {
-			return Response.json(
+			return NextResponse.json(
 				{ message: "Invalid credentials" },
 				{ status: 401 },
 			);
@@ -41,10 +41,17 @@ export async function POST(req: Request) {
 			{ expiresIn: "7d" },
 		);
 
-		return Response.json(
-			{ message: "Loing Successfully", token },
+		const response = NextResponse.json(
+			{ message: "Loing Successfully" },
 			{ status: 200 },
 		);
+
+		response.cookies.set("token", token, {
+			httpOnly: true,
+			maxAge: 7 * 24 * 60 * 60,
+		});
+
+		return response;
 	} catch (error) {
 		console.log(error);
 		return Response.json(

@@ -1,13 +1,14 @@
 import cloudinary from "@/lib/cloudinary";
+import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
 	try {
 		const formData = await req.formData();
 		const file = formData.get("file") as File;
 
 		if (!file) {
-			return Response.json({ error: "File not Found" }, { status: 400 });
+			return NextResponse.json({ error: "File not Found" }, { status: 400 });
 		}
 
 		//2. file ko buffer me conver
@@ -22,18 +23,20 @@ export async function POST(req: Request) {
 				.upload_stream(
 					{ folder: "dev_blog", public_id: uniqueName },
 					(error, result) => {
-						if (error) reject(error);
-						else resolve(result);
+						if (error) {
+							reject(error);
+						} else {
+							resolve(result);
+						}
 					},
 				)
 				.end(buffer);
 		});
-		console.log(result, "backend 32");
-		return Response.json({
+		return NextResponse.json({
 			url: (result as any).secure_url,
 		});
 	} catch (error) {
 		console.error("Upload error:", error);
-		return Response.json({ error: String(error) }, { status: 500 });
+		return NextResponse.json({ error: String(error) }, { status: 500 });
 	}
 }

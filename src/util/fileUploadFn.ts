@@ -7,11 +7,7 @@ export const uploadToCloudinary = async (
 	formData.append("type", type);
 
 	console.log(formData, "frondend fn 9");
-	const res = await fetch("/api/upload", 
-		{ method: "POST", 
-			body: formData 
-		}
-	);
+	const res = await fetch("/api/upload", { method: "POST", body: formData });
 	const data = await res.json();
 	return data.url;
 };

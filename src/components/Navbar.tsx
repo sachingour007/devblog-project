@@ -22,7 +22,7 @@ const Navbar = () => {
 						<Link href="/blogs">Blog</Link>
 					</li>
 					<li>
-						<Link href="/new-story">New Story</Link>
+						<Link href="/dashboard">Dashboard</Link>
 					</li>
 					<SearchExpandIcon />
 					<button className="purpuleBtn">Signup</button>
@@ -58,13 +58,13 @@ const Navbar = () => {
 				<div className="md:hidden bg-white border-t ">
 					<ul className="flex flex-col items-center gap-6 py-6">
 						<li>
-							<Link href="/blog" onClick={() => setIsOpen(false)}>
+							<Link href="/blogs" onClick={() => setIsOpen(false)}>
 								Blog
 							</Link>
 						</li>
 						<li>
-							<Link href="/about" onClick={() => setIsOpen(false)}>
-								new-story
+							<Link href="/dashboard" onClick={() => setIsOpen(false)}>
+								Dashboard
 							</Link>
 						</li>
 						<li>
