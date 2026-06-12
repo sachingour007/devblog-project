@@ -25,7 +25,9 @@ const Navbar = () => {
 						<Link href="/dashboard">Dashboard</Link>
 					</li>
 					<SearchExpandIcon />
-					<button className="purpuleBtn">Signup</button>
+					<button className="purpuleBtn">
+						<Link href={"/login"}>Login</Link>
+					</button>
 				</ul>
 
 				{/* Hamburger Button */}

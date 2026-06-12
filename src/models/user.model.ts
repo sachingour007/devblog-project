@@ -1,4 +1,11 @@
-import { Schema, models, model, } from "mongoose";
+import { Schema, models, model } from "mongoose";
+
+export interface IUser extends Document {
+	username: string;
+	email: string;
+	password: string;
+	role: "reader" | "writer" | "admin";
+}
 
 const userSchema = new Schema(
 	{
@@ -22,6 +29,7 @@ const userSchema = new Schema(
 			type: String,
 			required: true,
 		},
+		enum: ["reader", "writer", "admin"],
 	},
 	{
 		timestamps: true,

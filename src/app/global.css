@@ -127,10 +127,12 @@ body {
 	text-decoration: underline;
 	cursor: pointer;
 }
-.tiptap h2,
+/* .tiptap h2,
 h3,
 h4,
-p, ul, li {
+p, 
+ul, 
+li {
 	margin: 0;
 	
-}
+} */

@@ -78,13 +78,29 @@ export async function GET(req: NextRequest) {
 		const limit = parseInt(searchParams.get("limit") || "10");
 		const skip = (page - 1) * limit;
 
-		const blogs = await Blog.find({ status: "published" })
-			.populate("author", "username email")
-			.sort({ createdAt: -1 })
-			.skip(skip)
-			.limit(limit);
+		//Search Query
+		const search = searchParams.get("search") || "";
+		const category = searchParams.get("category") || "";
 
-		const total = await Blog.countDocuments({ status: "published" });
+		const query: any = { status: "published" };
+
+		if (search) {
+			query.title = { $regex: search, $options: "i" };
+		}
+
+		if (category) {
+			query.category = category;
+		}
+
+		const [blogs, total] = await Promise.all([
+			Blog.find(query)
+				.populate("author", "username email")
+				.select("-content")
+				.sort({ createdAt: -1 })
+				.skip(skip)
+				.limit(limit),
+			Blog.countDocuments(query),
+		]);
 
 		return NextResponse.json(
 			{

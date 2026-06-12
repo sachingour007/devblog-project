@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 
 		if (!existUser) {
 			return NextResponse.json(
-				{ message: "Email not find, Please singup" },
+				{ message: "Invalid email or password" },
 				{ status: 404 },
 			);
 		}
@@ -30,31 +30,37 @@ export async function POST(req: NextRequest) {
 
 		if (!comparPass) {
 			return NextResponse.json(
-				{ message: "Invalid credentials" },
+				{ message: "Invalid email or password" },
 				{ status: 401 },
 			);
 		}
 
 		const token = jwt.sign(
-			{ userId: existUser._id },
+			{ userId: existUser._id, role: existUser.role },
 			process.env.JWT_SECRET!,
 			{ expiresIn: "7d" },
 		);
 
+		const userObj = existUser.toObject();
+		const { password: _, ...safeUser } = userObj;
+
 		const response = NextResponse.json(
-			{ message: "Loing Successfully" },
+			{ message: "Login Successfully", user: safeUser },
 			{ status: 200 },
 		);
 
 		response.cookies.set("token", token, {
 			httpOnly: true,
 			maxAge: 7 * 24 * 60 * 60,
+			secure: process.env.NODE_ENV === "production",
+			sameSite: "lax",
+			path: "/",
 		});
 
 		return response;
 	} catch (error) {
-		console.log(error);
-		return Response.json(
+		console.error("Login error:", error);
+		return NextResponse.json(
 			{ message: "Internal Server Error" },
 			{ status: 500 },
 		);
