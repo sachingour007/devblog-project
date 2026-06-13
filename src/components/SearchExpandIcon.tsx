@@ -9,7 +9,6 @@ const SearchExpandIcon = () => {
 	useEffect(() => {
 		const handleClick = (e: MouseEvent) => {
 			const target = e.target as HTMLElement;
-			console.log(target.closest(".search-container"));
 
 			if (!target.closest(".search-container")) {
 				setIsOpen(false);

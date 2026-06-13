@@ -1,3 +1,5 @@
+import SignupForm from "@/components/SignupForm";
+
 const SignupPage = () => {
 	return (
 		<div className="bg-zinc-50 px-4 pb-10 pt-26 md:px-6 md:pt-24 md:min-h-screen md:flex md:items-center">
@@ -49,50 +51,7 @@ const SignupPage = () => {
 									</p>
 								</div>
 
-								<form className="space-y-5">
-									<div>
-										<label className="mb-2 block text-sm font-medium text-zinc-700">
-											Username
-										</label>
-
-										<input
-											type="text"
-											placeholder="john_doe"
-											className="h-12 w-full rounded-xl border border-zinc-300 px-4 outline-none transition-all focus:border-violet-500"
-										/>
-									</div>
-
-									<div>
-										<label className="mb-2 block text-sm font-medium text-zinc-700">
-											Email
-										</label>
-
-										<input
-											type="email"
-											placeholder="john@example.com"
-											className="h-12 w-full rounded-xl border border-zinc-300 px-4 outline-none transition-all focus:border-violet-500"
-										/>
-									</div>
-
-									<div>
-										<label className="mb-2 block text-sm font-medium text-zinc-700">
-											Password
-										</label>
-
-										<input
-											type="password"
-											placeholder="••••••••"
-											className="h-12 w-full rounded-xl border border-zinc-300 px-4 outline-none transition-all focus:border-violet-500"
-										/>
-									</div>
-
-									<button
-										type="submit"
-										className="h-12 w-full rounded-xl bg-violet-600 font-medium text-white transition hover:bg-violet-700"
-									>
-										Create Account
-									</button>
-								</form>
+								<SignupForm />
 
 								<p className="mt-6 text-center text-sm text-zinc-500">
 									Already have an account?

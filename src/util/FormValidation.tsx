@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 export const registerSchema = Yup.object({
-	userName: Yup.string().min(3).max(25).required("Please enter your FullName"),
+	username: Yup.string().min(3).max(25).required("Please enter your FullName"),
 	email: Yup.string()
 		.trim()
 		.email("Please enter a valid email")
@@ -16,7 +16,6 @@ export const registerSchema = Yup.object({
 			/[!@#$%^&*(),.?":{}|<>]/,
 			"Password must contain at least one special character",
 		),
-	phone: Yup.string().min(10).max(10).required("Please enter your Phone"),
 });
 
 export const loginSchema = Yup.object({

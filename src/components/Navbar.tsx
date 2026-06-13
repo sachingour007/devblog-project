@@ -4,9 +4,31 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import SearchExpandIcon from "./SearchExpandIcon";
+import { useAuthStore } from "@/store/authStore";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const { logout, isAuthenticated, user } = useAuthStore();
+	const router = useRouter();
+
+	const logoutHandler = async () => {
+		try {
+			const res = await fetch("/api/auth/logout", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+			});
+			const data = res.json();
+			logout();
+			router.push("/login");
+		} catch (error) {
+			console.log(error);
+		}
+		
+	};
 
 	return (
 		<header className="fixed top-0 left-0 w-full bg-white shadow-sm z-999">
@@ -25,8 +47,15 @@ const Navbar = () => {
 						<Link href="/dashboard">Dashboard</Link>
 					</li>
 					<SearchExpandIcon />
+					<p>Hi, {user?.username}</p>
 					<button className="purpuleBtn">
-						<Link href={"/login"}>Login</Link>
+						{isAuthenticated ? (
+							<span className="cursor-pointer " onClick={logoutHandler}>
+								logout
+							</span>
+						) : (
+							<Link href={"/login"}> login</Link>
+						)}
 					</button>
 				</ul>
 
