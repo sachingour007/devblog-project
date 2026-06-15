@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchExpandIcon from "./SearchExpandIcon";
 import { useAuthStore } from "@/store/authStore";
 import { useRouter } from "next/navigation";
@@ -27,8 +27,8 @@ const Navbar = () => {
 		} catch (error) {
 			console.log(error);
 		}
-		
 	};
+	useEffect(() => {}, [isAuthenticated]);
 
 	return (
 		<header className="fixed top-0 left-0 w-full bg-white shadow-sm z-999">
@@ -47,7 +47,9 @@ const Navbar = () => {
 						<Link href="/dashboard">Dashboard</Link>
 					</li>
 					<SearchExpandIcon />
-					<p>Hi, {user?.username}</p>
+
+					{isAuthenticated ? <p>Hi, {user?.username}</p> : ""}
+
 					<button className="purpuleBtn">
 						{isAuthenticated ? (
 							<span className="cursor-pointer " onClick={logoutHandler}>

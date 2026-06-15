@@ -29,7 +29,11 @@ const userSchema = new Schema(
 			type: String,
 			required: true,
 		},
-		enum: ["reader", "writer", "admin"],
+		role: {
+			type: String,
+			enum: ["reader", "writer", "admin"],
+			default: "writer", // ← automatically assign hoga
+		},
 	},
 	{
 		timestamps: true,

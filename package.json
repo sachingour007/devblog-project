@@ -23,6 +23,7 @@
     "cloudinary": "^2.10.0",
     "clsx": "^2.1.1",
     "formik": "^2.4.9",
+    "jose": "^6.2.3",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^1.16.0",
     "mongoose": "^9.4.1",

@@ -3,6 +3,7 @@ import { Raleway, Roboto } from "next/font/google";
 import "./global.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AuthProvider from "@/components/AuthProvider";
 
 const ralewayFont = Raleway({
 	variable: "--font-raleway",
@@ -30,9 +31,11 @@ export default function RootLayout({
 			className={`${ralewayFont.variable} ${robotoFont.variable} h-full antialiased`}
 		>
 			<body className="min-h-full flex flex-col" cz-shortcut-listen="true">
-				<Navbar />
-				{children}
-				<Footer />
+				<AuthProvider>
+					<Navbar />
+					{children}
+					<Footer />
+				</AuthProvider>
 			</body>
 		</html>
 	);

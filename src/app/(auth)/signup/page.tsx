@@ -1,4 +1,5 @@
 import SignupForm from "@/components/SignupForm";
+import Link from "next/link";
 
 const SignupPage = () => {
 	return (
@@ -55,12 +56,12 @@ const SignupPage = () => {
 
 								<p className="mt-6 text-center text-sm text-zinc-500">
 									Already have an account?
-									<a
+									<Link
 										href="/login"
 										className="ml-1 font-medium text-violet-600"
 									>
 										Login
-									</a>
+									</Link>
 								</p>
 							</div>
 						</div>

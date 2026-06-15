@@ -3,7 +3,7 @@
 import { useFormik } from "formik";
 import { registerSchema } from "@/util/FormValidation";
 import { useAuthStore } from "@/store/authStore";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const initialValues = {
 	username: "",
